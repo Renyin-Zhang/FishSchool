@@ -13,10 +13,36 @@ This project was developed and tested on the Pawsey Supercomputer. The Pawsey Su
 - MPI for message passing in distributed systems
 
 ## Implementation Details
-This project includes a sequential C program, a multi-threaded and distributed implementation using OpenMP, integrated with MPI.
 
-- **Sequential Program**: Simulates fish school behavior in a grid, focusing on optimizing an objective function.
-- **Parallel Implementation with OpenMP & MPI**: Utilizes OpenMP for parallelizing the algorithm on a single machine with multiple cores, runs across multiple nodes using MPI for data distribution and collection.
+### 1. `sequential.c`
+- **Purpose**: Initializes and simulates fish behavior sequentially, without parallel processing. This foundational approach focuses on simple simulation tasks such as fish movement and basic behavior.
+- **Key Features**:
+  - Basic data structures for representing fish.
+  - Initialization routines and the main simulation loop.
+  - Simple computations for functions like calculating distances.
+  - Basic file input/output for recording simulation data.
+  - Error handling mechanisms to manage issues during execution.
+
+### 2. `openmp_parallel.c`
+- **Purpose**: Utilizes OpenMP to parallelize the fish simulation on a single machine, making use of multiple CPU cores available in a shared-memory architecture.
+- **Key Features**:
+  - OpenMP directives to manage parallel loops and possibly other parallel tasks or sections.
+  - Focus on reducing the overhead associated with multi-threading and optimizing memory usage among threads.
+  - Designed to enhance computational efficiency on systems with multi-core processors through efficient division of simulation tasks.
+ 
+### 3. `mpi_test.c`
+- **Purpose**: Introduces MPI to distribute the fish simulation across multiple processes, aiming to enhance the scalability and handle larger datasets or more complex simulations efficiently.
+- **Key Features**:
+  - MPI initialization and the creation of a custom MPI datatype to handle the fish data structure efficiently across processes.
+  - Distribution of initial fish data from the master node to other nodes for parallel processing.
+  - Use of MPI functions such as `MPI_Scatterv` and `MPI_Gatherv` for effective data distribution and collection.
+
+### 4. `mpi_parallel.c`
+- **Purpose**: Enhances the parallelism of the fish simulation by integrating more complex behaviors such as dynamic movement and weight adjustments, using both MPI and OpenMP for distributed and multi-threaded execution.
+- **Key Features**:
+  - Advanced simulation functions like dynamic swimming behavior and objective-based weight adjustments.
+  - Combination of MPI for inter-node communication and OpenMP for intra-node multi-threading, optimizing parallel execution.
+  - Calculation of maximum objectives and updates to fish weights, showcasing a blend of MPI and OpenMP functionalities.
 
 ## Usage
 Compile and run by creating a batch file `myscript`:
